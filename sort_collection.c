@@ -59,9 +59,39 @@ void insertion_sort(int a[], int n) {
 
 // Functions for Heap sort
 /**************************************/
-void sift_down(int a[], int i, int n) { ... }
+void sift_down(int a[], int i, int n) {
+  int snode;
+  int svalue;
+  while (2*i+1 <= n-1) {
+    if (2*i+1 == n-1) {
+      snode = 2*i+1;
+      svalue = a[2*i+1];
+    } else {
+      if (a[2*i+1] >= a[2*i+2]) {
+        snode = 2*i+1;
+        svalue = a[2*i+1];
+      } else {
+        snode = 2*i+2;
+        svalue = a[2*i+2];
+      }
+    }
 
-void build_heap (int a[], int n) { ... }
+    if (a[i] < svalue) {
+      a[snode] = a[i];
+      a[i] = svalue;
+      i = snode;
+    } else {
+      return;
+    }
+  }
+  return;
+}
+
+void build_heap (int a[], int n) {
+  for (int i = n/2 - 1; i >= 0; i++) {
+    sift_down(a, i, n);
+  }
+}
 
 void heap_sort (int a[], int n) { ... }
 
