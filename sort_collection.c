@@ -49,7 +49,7 @@ void insertion_sort(int a[], int n) {
   for (int i = 0; i < n; i++) {
     insertion = a[i];
     int j = i - 1;
-    while (j >= 0 && insertion < a[j]) {
+    while (j >= 0 && compare(insertion, a[j]) == -1) {
       a[j+1] = a[j];
       j--;
     }
@@ -76,7 +76,7 @@ void sift_down(int a[], int i, int n) {
       }
     }
 
-    if (a[i] < svalue) {
+    if (compare(a[i], svalue) == -1) {
       a[snode] = a[i];
       a[i] = svalue;
       i = snode;
@@ -93,13 +93,38 @@ void build_heap (int a[], int n) {
   }
 }
 
-void heap_sort (int a[], int n) { ... }
+void heap_sort (int a[], int n) {
+  build_heap(a, n);
+  for (int m = n-1; m > 0; m--) {
+    swap(a, 0, m);
+    sift_down(a, 0, m);
+  }
+}
 
 // Functions for Quick sort
 /**************************************/
-int partition(int a[], int pivot, int left, int right) { ... }
+int partition(int a[], int pivot, int left, int right) {
+  swap(a, right, pivot);
+  int l = left;
+  int r = right - 1;
+  while (1) {
+    while (a[l] < a[right]) l++;
+    while (l <= r && a[r] >= a[right]) r = r - 1;
+    if (l < r) swap(a, l, r);
+    else break;
+  }
+  swap(a, l, right);
+  return l;
+}
 
-void quick_sort(int a[], int left, int right) { ... }
+void quick_sort(int a[], int left, int right) {
+  if (left < right) {
+    int pivot = right;
+    int p = partition(a, pivot, left, right);
+    quick_sort(a, left, p-1);
+    quick_sort(a, p+1, right);
+  }
+}
 
 void q_sort(int a[], int n) {
   quick_sort(a, 0, n-1);
