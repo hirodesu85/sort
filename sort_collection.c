@@ -10,12 +10,14 @@ void cmp_cnt_reset(void) {
 
 int compare(int ldata, int rdata) {
   compare_count++;
+  printf("Compare %d, %d\n", ldata, rdata);
   if      (ldata  < rdata) return -1;
   else if (ldata == rdata) return  0;
   else                     return  1;
 }
 
 void swap(int a[], int lidx, int ridx) {
+  printf("Swap %d, %d\n", a[lidx], a[ridx]);
   int temp = a[lidx];
   a[lidx] = a[ridx];
   a[ridx] = temp;
@@ -67,7 +69,7 @@ void sift_down(int a[], int i, int n) {
       snode = 2*i+1;
       svalue = a[2*i+1];
     } else {
-      if (a[2*i+1] >= a[2*i+2]) {
+      if (compare(a[2*i+1], a[2*i+2]) == 1) {
         snode = 2*i+1;
         svalue = a[2*i+1];
       } else {
@@ -77,8 +79,7 @@ void sift_down(int a[], int i, int n) {
     }
 
     if (compare(a[i], svalue) == -1) {
-      a[snode] = a[i];
-      a[i] = svalue;
+      swap(a, i, snode);
       i = snode;
     } else {
       return;
@@ -88,7 +89,7 @@ void sift_down(int a[], int i, int n) {
 }
 
 void build_heap (int a[], int n) {
-  for (int i = n/2 - 1; i >= 0; i++) {
+  for (int i = n/2 - 1; i >= 0; i--) {
     sift_down(a, i, n);
   }
 }
@@ -108,8 +109,8 @@ int partition(int a[], int pivot, int left, int right) {
   int l = left;
   int r = right - 1;
   while (1) {
-    while (a[l] < a[right]) l++;
-    while (l <= r && a[r] >= a[right]) r = r - 1;
+    while (compare(a[l], a[right]) == -1) l++;
+    while (l <= r && (compare(a[r], a[right]) != -1)) r = r - 1;
     if (l < r) swap(a, l, r);
     else break;
   }

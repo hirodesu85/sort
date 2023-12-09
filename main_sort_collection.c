@@ -15,7 +15,9 @@ int main(int argc, char *argv[]) {
     for (i = 0; i < numdata; i++) {
       scanf("%d", &array[i]);  // enter integers
     }
-    selection_sort(array, numdata);
+    insertion_sort(array, numdata);
+    // heap_sort(array, numdata);
+    // q_sort(array, numdata);
     printf("sorting result\n");
     display(array, numdata);
     printf("# of comparisons: %lu\n", compare_count);
