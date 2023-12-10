@@ -28,9 +28,11 @@ int main(int argc, char *argv[]) {
       int *array = (int*)malloc(sizeof(int) * numdata);
       int i;
       for (i = 0; i < numdata; i++) {
-        array[i] = GetRandom(0, (numdata * 10 - 1));  // random number from 0 to numdata * 10 - 1
+        // array[i] = GetRandom(0, (numdata * 10 - 1));  // random number from 0 to numdata * 10 - 1
+        array[i] = numdata - i; // number from numdata to 1
       }
-      selection_sort(array, numdata);
+      // heap_sort(array, numdata);
+      q_sort(array, numdata);
       printf("%d %lu\n", numdata, compare_count);
       cmp_cnt_reset();
       free(array);

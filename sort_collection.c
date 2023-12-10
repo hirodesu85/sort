@@ -10,14 +10,14 @@ void cmp_cnt_reset(void) {
 
 int compare(int ldata, int rdata) {
   compare_count++;
-  printf("Compare %d, %d\n", ldata, rdata);
+  // printf("Compare %d, %d\n", ldata, rdata);
   if      (ldata  < rdata) return -1;
   else if (ldata == rdata) return  0;
   else                     return  1;
 }
 
 void swap(int a[], int lidx, int ridx) {
-  printf("Swap %d, %d\n", a[lidx], a[ridx]);
+  // printf("Swap %d, %d\n", a[lidx], a[ridx]);
   int temp = a[lidx];
   a[lidx] = a[ridx];
   a[ridx] = temp;
