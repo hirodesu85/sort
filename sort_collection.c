@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "sort_collection.h"
+#include "queue.h"
 
 unsigned long compare_count = 0;
 
@@ -129,4 +131,48 @@ void quick_sort(int a[], int left, int right) {
 
 void q_sort(int a[], int n) {
   quick_sort(a, 0, n-1);
+}
+
+// Functions for Radix sort
+/**************************************/
+void bucket_sort(int a[], int n, int k) {
+  Queue *q0 = create_queue(n);
+  Queue *q1 = create_queue(n);
+  Queue *q2 = create_queue(n);
+  Queue *q3 = create_queue(n);
+  Queue *q4 = create_queue(n);
+  Queue *q5 = create_queue(n);
+  Queue *q6 = create_queue(n);
+  Queue *q7 = create_queue(n);
+  Queue *q8 = create_queue(n);
+  Queue *q9 = create_queue(n);
+  Queue *bucket[] = {q0, q1, q2, q3, q4, q5, q6, q7, q8, q9};
+
+  for (int i = 0; i < n; i++) {
+    int idx = (a[i] / (int)pow(10, k-1)) % 10;
+    enqueue(bucket[idx], a[i]);
+  }
+
+  printf("%d 桁目\n", k);
+  for (int i = 0; i < 10; i++) {
+    printf("Q%d:", i);
+    display_queue(bucket[i]);
+  }
+  printf("\n");
+
+  for (int i = 0, j = 0; j < 10; j++) {
+    while (bucket[j]->front != bucket[j]->rear) {
+      a[i] = dequeue(bucket[j]);
+      i++;
+    }
+    delete_queue(bucket[j]);
+  }
+
+
+}
+
+void radix_sort(int a[], int n, int k) {
+  for (int i = 1; i <= k; i++) {
+    bucket_sort(a, n, i);
+  }
 }

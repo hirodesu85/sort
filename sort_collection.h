@@ -9,5 +9,7 @@ void selection_sort(int a[], int n);
 void insertion_sort(int a[], int n);
 void heap_sort(int a[], int n);
 void q_sort(int a[], int n);
+void bucket_sort(int a[], int n, int k);
+void radix_sort(int a[], int n, int k);
 
 #endif  // INCLUDE_GUARD_SORT_COLLECTION_H
